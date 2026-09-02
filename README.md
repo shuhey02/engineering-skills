@@ -11,6 +11,7 @@
 | [codex-plan-review-loop](.claude/skills/codex-plan-review-loop) | Claude Code | Claude Codeで作った実装計画をCodexでレビューする時に使う。実装前に指摘と修正のループを回してから着手する                                                    |
 | [codex-pr-review-loop](.claude/skills/codex-pr-review-loop) | Claude Code | Claude Codeで作った Pull Request をCodexでレビューする、PRを出す前に使う。Codex が指摘し、取捨選択は人間が行い、修正と再レビューはループが回す                      |
 | [explain-visually](.claude/skills/explain-visually) | どのツールでも（Claude Code 推奨） | 長文の実装計画や、他のメンバーが AI で作った PR などを読み解いて、理解を早めたいときに。図と短い文で1枚のHTMLに組み直し、ブラウザで開く                                      |
+| [final-approval-gate](.claude/skills/final-approval-gate) | どのツールでも | PR作成・push・デプロイ・成果物の引き渡しなど、後戻りしにくい操作の直前に使う。対応した内容をセクションごとに平易な言葉で要約し、良いか悪いかを明示的に確認してから次のアクションに進む |
 | [github-pr-review-draft](.claude/skills/github-pr-review-draft) | どのツールでも（Claude Code 推奨） | 他の開発者の PR レビューを AI に手伝わせたいが、勝手にコメントを投稿されては困るときに。AI がやるのは下読みとコメント案まで。GitHub に出るのは人間が承認した文面だけ                     |
 | [claude-plan-review-loop](.codex/skills/claude-plan-review-loop) | Codex | codex-plan-review-loop の逆方向。Codex で開発していて、実装計画のレビューを Claude Code に任せたいときに                                       |
 | [claude-pr-review-loop](.codex/skills/claude-pr-review-loop) | Codex | codex-pr-review-loop の逆方向。Codex で作った PR を Claude Code に検収させたいときに                                                |
@@ -50,10 +51,11 @@ ln -sfn "$REPO/.claude/skills/code-naming"            ~/.claude/skills/code-nami
 ln -sfn "$REPO/.claude/skills/codex-plan-review-loop" ~/.claude/skills/codex-plan-review-loop
 ln -sfn "$REPO/.claude/skills/codex-pr-review-loop"   ~/.claude/skills/codex-pr-review-loop
 ln -sfn "$REPO/.claude/skills/explain-visually"       ~/.claude/skills/explain-visually
+ln -sfn "$REPO/.claude/skills/final-approval-gate"    ~/.claude/skills/final-approval-gate
 ln -sfn "$REPO/.claude/skills/github-pr-review-draft" ~/.claude/skills/github-pr-review-draft
 ```
 
-レビューループ系と explain-visually と github-pr-review-draft は `disable-model-invocation: true` を付けているので、`/スキル名` で明示的に呼んだときだけ動きます。code-comments と code-naming は明示的に呼べるほか、関連する作業でエージェントが自動的にも参照します。
+レビューループ系と explain-visually と github-pr-review-draft は `disable-model-invocation: true` を付けているので、`/スキル名` で明示的に呼んだときだけ動きます。code-comments と code-naming と final-approval-gate は明示的に呼べるほか、関連する作業でエージェントが自動的にも参照します。
 
 ### Codex
 
@@ -71,6 +73,7 @@ ln -sfn "$REPO/.codex/skills/claude-pr-review-loop"   ~/.agents/skills/claude-pr
 ln -sfn "$REPO/.claude/skills/code-comments"          ~/.agents/skills/code-comments
 ln -sfn "$REPO/.claude/skills/code-naming"            ~/.agents/skills/code-naming
 ln -sfn "$REPO/.claude/skills/explain-visually"       ~/.agents/skills/explain-visually
+ln -sfn "$REPO/.claude/skills/final-approval-gate"    ~/.agents/skills/final-approval-gate
 ln -sfn "$REPO/.claude/skills/github-pr-review-draft" ~/.agents/skills/github-pr-review-draft
 ```
 
@@ -92,6 +95,7 @@ cp -R "$REPO/.claude/skills/code-naming"            ~/.cursor/skills/code-naming
 cp -R "$REPO/.claude/skills/codex-plan-review-loop" ~/.cursor/skills/codex-plan-review-loop
 cp -R "$REPO/.claude/skills/codex-pr-review-loop"   ~/.cursor/skills/codex-pr-review-loop
 cp -R "$REPO/.claude/skills/explain-visually"       ~/.cursor/skills/explain-visually
+cp -R "$REPO/.claude/skills/final-approval-gate"    ~/.cursor/skills/final-approval-gate
 cp -R "$REPO/.claude/skills/github-pr-review-draft" ~/.cursor/skills/github-pr-review-draft
 cp -R "$REPO/.codex/skills/claude-plan-review-loop" ~/.cursor/skills/claude-plan-review-loop
 cp -R "$REPO/.codex/skills/claude-pr-review-loop"   ~/.cursor/skills/claude-pr-review-loop
